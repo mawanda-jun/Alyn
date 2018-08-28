@@ -51,10 +51,12 @@ class Deskew:
 		res = self.skew_obj.process_single_file()
 		angle = res['Estimated Angle']
 
-		if angle >= 0 and angle <= 90:
+		rot_angle = angle
+
+		if angle >= 45 and angle <= 90:
 			rot_angle = angle - 90 + self.r_angle
-		if angle >= -45 and angle < 0:
-			rot_angle = angle - 90 + self.r_angle
+		# if angle >= -45 and angle < 0:
+		# 	rot_angle = angle - 90 + self.r_angle
 		if angle >= -90 and angle < -45:
 			rot_angle = 90 + angle + self.r_angle
 
