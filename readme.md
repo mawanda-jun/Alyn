@@ -1,9 +1,5 @@
 # Alyn
 
-[![PyPI version](https://badge.fury.io/py/alyn.svg)](https://badge.fury.io/py/alyn)
-
-Documentation coming soon for PyPI version!
-
 ## Skew detection and correction in images containing text
 
 <img src="/examples/4.jpg" width=400px></img>
@@ -31,6 +27,7 @@ Documentation coming soon for PyPI version!
 * View Hough Transform of a given image
 * Set the number of peaks for Hough Transform and Sigma for Canny Edge detection
 * Rotate the image to remove the skew
+* Accept and return numpy grayscale images
 
 ###How the skew detection works
 
@@ -47,6 +44,31 @@ The skew detection script takes image file as input, then performs the following
 The deskew script uses the skew angle determined using skew detection script to remove the skew from the image.
 
 ###Usage
+
+#### Image skew inside project using alyn and numpy image
+First of all download and install the `alyn` wheel from the `my_wheels` folder.
+
+Then integrate it into your project to de-skew a `numpy` array image:
+```angular2html
+from alyn import deskew
+
+dw = deskew.Deskew(
+    input_numpy=image_np,
+    output_numpy=True
+)
+rotated_np_image = dw.run()
+```
+
+#### Read image, de-skew it and write to disk:
+```angular2html
+from alyn import deskew
+
+dw = deskew.Deskew(
+    input_file=path/to/image,
+    output_file=path/to/destination
+)
+dw.run()
+```
 
 #### Image skew calculation using skew_detect.py
 
