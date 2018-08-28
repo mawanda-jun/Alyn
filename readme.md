@@ -12,6 +12,7 @@
 * `matplotlib`
 * `scipy`
 * `scikit-image`
+* `wheel` (to create personalized wheel)
 
 ###Techniques used
 
