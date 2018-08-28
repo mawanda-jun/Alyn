@@ -103,7 +103,7 @@ class SkewDetect:
 			else:
 				self.plot_hough = False
 
-		if self.input_numpy:
+		if self.input_numpy is not None:
 			ar = self.process_single_file()
 			if self.output_numpy:
 				return ar
@@ -124,11 +124,10 @@ class SkewDetect:
 		return full_path
 
 	def process_single_file(self):
-		if self.input_numpy:
-			file_path = False
-		else:
+		if self.input_numpy is None:
 			file_path = self.check_path(self.input_file)
-
+		else:
+			file_path = None
 		res = self.determine_skew(file_path)
 
 		if self.output_file:
@@ -165,10 +164,10 @@ class SkewDetect:
 			wfile.close()
 
 	def determine_skew(self, img_file):
-		if img_file is False:
+		if img_file is None:
 			img = self.input_numpy
 		else:
-			img = io.imread(img_file, as_grey=True)
+			img = io.imread(img_file, as_gray=True)
 		edges = canny(img, sigma=self.sigma)
 		h, a, d = hough_line(edges)
 		_, ap, _ = hough_line_peaks(h, a, d, num_peaks=self.num_peaks)

@@ -11,24 +11,39 @@ from skimage.transform import rotate
 class Deskew:
 	def __init__(
 			self,
-			input_numpy,
-			output_numpy,
-			input_file,
-			display_image,
-			output_file,
-			r_angle
+			input_numpy=None,
+			output_numpy=False,
+			input_file=None,
+			display_image=None,
+			output_file=None,
+			r_angle=0
 			):
 
-		self.input_numpy = input_numpy,
-		self.output_numpy = output_numpy,
+		self.input_numpy = input_numpy
+		self.output_numpy = output_numpy
+		self.output_file = output_file
 		self.input_file = input_file
 		self.display_image = display_image
 		self.output_file = output_file
 		self.r_angle = r_angle
-		self.skew_obj = SkewDetect(self.input_file)
+
+		if self.input_numpy is not None:
+			if self.output_numpy:
+				self.skew_obj = SkewDetect(
+					input_numpy=self.input_numpy,
+					output_numpy=True
+				)
+			else:
+				self.skew_obj = SkewDetect(
+					input_numpy=self.input_numpy
+				)
+		else:
+			self.skew_obj = SkewDetect(
+				input_file=self.input_file
+			)
 
 	def deskew(self):
-		if self.input_numpy:
+		if self.input_numpy is not None:
 			img = self.input_numpy
 			self.input_file = False
 		else:
@@ -109,6 +124,8 @@ if __name__ == '__main__':
 		type=int)
 	options, args = parser.parse_args()
 	deskew_obj = Deskew(
+		options.input_numpy,
+		options.output_numpy,
 		options.input_file,
 		options.display_image,
 		options.output_file,
