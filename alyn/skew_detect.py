@@ -9,6 +9,7 @@ from skimage import io
 from skimage.feature import canny
 from skimage.color import rgb2gray
 from skimage.transform import hough_line, hough_line_peaks
+from sys import stderr
 
 
 class SkewDetect:
@@ -173,7 +174,14 @@ class SkewDetect:
 		_, ap, _ = hough_line_peaks(h, a, d, num_peaks=self.num_peaks)
 
 		if len(ap) == 0:
-			return {"Image File": img_file, "Message": "Bad Quality"}
+			# bad quality or blank image
+			print('Bad quality or blank image, setting angle to 0', file=stderr)
+			return {
+				"Image File": img_file,
+				"Average Deviation from pi/4": 0,
+				"Estimated Angle": 0,
+				"Angle bins": [0]
+			}
 
 		absolute_deviations = [self.calculate_deviation(k) for k in ap]
 		average_deviation = np.mean(np.rad2deg(absolute_deviations))
@@ -226,7 +234,8 @@ class SkewDetect:
 			"Image File": img_file,
 			"Average Deviation from pi/4": average_deviation,
 			"Estimated Angle": ans_res,
-			"Angle bins": angles}
+			"Angle bins": angles
+		}
 
 		if self.display_output:
 			self.display(data)
