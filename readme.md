@@ -6,7 +6,7 @@
 <h5>Image with skew</h5>
 <img src="sample_output.jpg" height=300px>
 <h5>Image after deskew</h5>
-###Requires
+### Requires
 
 * `numpy`
 * `matplotlib`
@@ -14,12 +14,12 @@
 * `scikit-image`
 * `wheel` (to create personalized wheel)
 
-###Techniques used
+### Techniques used
 
 * Canny Edge Detection
 * Hough Transform
 
-###Features
+### Features
 
 * Detect the skew in given images
 * Display the output 
@@ -30,7 +30,7 @@
 * Rotate the image to remove the skew
 * Accept and return numpy grayscale images
 
-###How the skew detection works
+### How the skew detection works
 
 The skew detection script takes image file as input, then performs the following steps:
 
@@ -44,7 +44,7 @@ The skew detection script takes image file as input, then performs the following
 
 The deskew script uses the skew angle determined using skew detection script to remove the skew from the image.
 
-###Usage
+### Usage
 
 #### Image skew inside project using alyn and numpy image
 First of all download and install the `alyn` wheel from the `my_wheels` folder.
@@ -93,7 +93,7 @@ To display Hough Transform plot for an image,:
 	
 	./skew_detect.py -i image.jpg -p Yes
 
-#####Output of the Hough Transform:
+##### Output of the Hough Transform:
 
 <img src="hough.jpg" width="400px">	
 
@@ -105,7 +105,7 @@ To set the number of peaks collected from Hough Transform, use `-n` option follo
 
 	./skew_detect.py -i image.jpg -n 10
 
-###Image Deskew using deskew.py
+### Image Deskew using deskew.py
 
 To perform a simple deskew and display the output:
 	
